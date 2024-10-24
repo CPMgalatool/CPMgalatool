@@ -9,7 +9,7 @@ from rich.text import Text
 from rich.style import Style
 from cpmgala import CPMGala
 
-__CHANNEL_USERNAME__ = "cpmtgala"
+__CHANNEL_USERNAME__ = "cpmgala"
 __GROUP_USERNAME__   = "cpmgala_chat"
 
 def signal_handler(sig, frame):
