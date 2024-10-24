@@ -1,18 +1,16 @@
 #!/usr/bin/python
 
 import random
-import requests
 from time import sleep
 import os, signal, sys
-from pyfiglet import figlet_format
 from rich.console import Console
 from rich.prompt import Prompt, IntPrompt
 from rich.text import Text
 from rich.style import Style
-from cpmgala import cpmgala
+from cpmgala import CPMGala
 
-__CHANNEL_USERNAME__ = "cpmgala"
-__GROUP_USERNAME__   = "cpmgala_chat"
+__CHANNEL_USERNAME__ = "cpmtgala"
+__GROUP_USERNAME__   = "cpmgalal_chat"
 
 def signal_handler(sig, frame):
     print("\n Bye Bye...")
@@ -37,50 +35,60 @@ def gradient_text(text, colors):
 
 def banner(console):
     os.system('cls' if os.name == 'nt' else 'clear')
-    brand_name = figlet_format('CPMgala', font='drpepper')
+brand_name =  " ▒█▀▀█ ▒█▀▀█ ▒█▀▄▀█ ▒█▀▀█ ░█▀▀█ ▒█░░░ ░█▀▀█ 
+brand_name += "▒█░░░ ▒█▄▄█ ▒█▒█▒█ ▒█░▄▄ ▒█▄▄█ ▒█░░░ ▒█▄▄█ 
+brand_name += "▒█▄▄█ ▒█░░░ ▒█░░▒█ ▒█▄▄█ ▒█░▒█ ▒█▄▄█ ▒█░▒█
     colors = [
         "rgb(255,0,0)", "rgb(255,69,0)", "rgb(255,140,0)", "rgb(255,215,0)", "rgb(173,255,47)", 
         "rgb(0,255,0)", "rgb(0,255,255)", "rgb(0,191,255)", "rgb(0,0,255)", "rgb(139,0,255)",
         "rgb(255,0,255)"
     ]
     colorful_text = gradient_text(brand_name, colors)
-    console.print(colorful_text, end=None)
-    console.print("[bold green]♕ CPMgala[/bold green]: скрипт который поможет вам стать самым крутым.")
-    console.print(f"[bold green]♕ Telegram[/bold green]: [bold blue]@{__CHANNEL_USERNAME__}[/bold blue] or [bold blue]@{__GROUP_USERNAME__}[/bold blue].")
-    console.print("[bold red]==================================================[/bold red]")
-    console.print("[bold yellow]! Note[/bold yellow]: Вам нужно выйти с игры перед использованием !.", end="\n\n")
+    console.print(colorful_text)
+    console.print("[bold][red]==================================================================[/red][/bold]")
+    console.print("\t   𝐏𝐋𝐄𝐀𝐒𝐄 𝐋𝐎𝐆𝐎𝐔𝐓 𝐅𝐑𝐎𝐌 𝐂𝐏𝐌 𝐁𝐄𝐅𝐎𝐑𝐄 𝐔𝐒𝐈𝐍𝐆 𝐓𝐇𝐈𝐒 𝐓𝐎𝐎𝐋")
+    console.print("   [bold][red]  𝐒𝐇𝐀𝐑𝐈𝐍𝐆 𝐓𝐇𝐄 𝐀𝐂𝐂𝐄𝐒𝐒 𝐊𝐄𝐘 𝐈𝐒 𝐍𝐎𝐓 𝐀𝐋𝐋𝐎𝐖𝐄𝐃 𝐀𝐍𝐃 𝐖𝐈𝐋𝐋 𝐁𝐄 𝐁𝐋𝐎𝐂𝐊𝐄𝐃[/bold][red]")
+    console.print(f"             [bold green]𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐦 𝐁𝐎𝐓 [/bold green]: [bold cyan]@cpmgalabot[/bold cyan] 𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐦 [bold cyan]@cpmgala[/bold cyan]") 
+    console.print("[bold][red]==================================================================[/red][/bold]")
 
 def load_player_data(cpm):
     response = cpm.get_player_data()
     if response.get('ok'):
         data = response.get('data')
         if 'floats' in data and 'localID' in data and 'money' in data and 'coin' in data:
-            console.print("[bold][red]================[/red][ PLAYER DETAILS ][red]================[/red][/bold]")
-            console.print(f"[bold green]Name   [/bold green]: { (data.get('Name') if 'Name' in data else 'UNDEFINED') }.")
-            console.print(f"[bold green]LocalID[/bold green]: { (data.get('localID') if 'localID' in data else 'UNDEFINED') }.")
-            console.print(f"[bold green]Money  [/bold green]: { (data.get('money') if 'money' in data else 'UNDEFINED') }.")
-            console.print(f"[bold green]Coins  [/bold green]: { (data.get('coin') if 'coin' in data else 'UNDEFINED') }.")
+        
+            console.print("[bold][red]==========[/red][ PLAYER DETAILS ][red]==========[/red][/bold]")
+            
+            console.print(
+                f"[bold green] Name   [/bold green]:[bold cyan] {(data.get('Name') if 'Name' in data else 'UNDEFINED')}[/bold cyan].")
+                
+            console.print(f"[bold green] LocalID[/bold green]:[bold cyan] {data.get('localID')}[/bold cyan].")
+            
+            console.print(f"[bold green] Money  [/bold green]:[bold cyan] {data.get('money')}[/bold cyan].")
+            
+            console.print(f"[bold green] Coins  [/bold green]:[bold cyan] {data.get('coin')}[/bold cyan].")
+            
         else:
             console.print("[bold red]! ERROR[/bold red]: new accounts most be signed-in to the game at least once !.")
             exit(1)
     else:
         console.print("[bold red]! ERROR[/bold red]: seems like your login is not properly set !.")
         exit(1)
-    
-def load_key_data(cpm):
-    data = cpm.get_key_data()
-    console.print("[bold][red]==================================================[/red][/bold]")
-    console.print(f"[bold green]Access Key [/bold green]: { data.get('access_key') }.")
-    console.print(f"[bold green]Telegram ID[/bold green]: { data.get('telegram_id') }.")
-    console.print(f"[bold green]Balance    [/bold green]: { (data.get('coins') if not data.get('is_unlimited') else 'Unlimited') }.")
 
-def load_client_details():
-    response = requests.get("http://ip-api.com/json")
-    data = response.json()
-    console.print("[bold][red]==================================================[/red][/bold]")
-    console.print(f"[bold][green]Location[/bold][/green]: {data.get('city')}, {data.get('regionName')}, {data.get('countryCode')}")
-    console.print(f"[bold][green]ISP[/bold][/green]     : {data.get('isp')}")
-    console.print("[bold][red]===================[/red][ SERVICES ][red]===================[/red][/bold]")
+
+def load_key_data(cpm):
+
+    data = cpm.get_key_data()
+    
+    console.print("[bold][red]========[/red][ ACCESS KEY DETAILS ][red]========[/red][/bold]")
+    
+    console.print(f"[bold green] Access Key [/bold green]:[bold cyan] {data.get('access_key')}[/bold cyan].")
+    
+    console.print(f"[bold green ] Telegram ID[/bold green]:[bold cyan] {data.get('telegram_id')}[/bold cyan].")
+    
+    console.print(f"[bold green] Balance $  [/bold green]:[bold cyan] {(data.get('coins') if not data.get('is_unlimited') else 'Unlimited')}[/bold cyan].")
+        
+    console.print("[bold][red]===============[/bold][/red][ 𝐌𝐞𝐧‌𝐮 ][bold][red]===============[/red][/bold]")
 
 def prompt_valid_value(content, tag, password=False):
     while True:
@@ -95,6 +103,8 @@ def interpolate_color(start_color, end_color, fraction):
     end_rgb = tuple(int(end_color[i:i+2], 16) for i in (1, 3, 5))
     interpolated_rgb = tuple(int(start + fraction * (end - start)) for start, end in zip(start_rgb, end_rgb))
     return "{:02x}{:02x}{:02x}".format(*interpolated_rgb)
+
+#cpmtool @abobalol228 @cpmtool
 
 def rainbow_gradient_string(customer_name):
     modified_string = ""
@@ -116,7 +126,7 @@ if __name__ == "__main__":
         acc_password = prompt_valid_value("[bold][?] Account Password[/bold]", "Password", password=False)
         acc_access_key = prompt_valid_value("[bold][?] Access Key[/bold]", "Access Key", password=False)
         console.print("[bold cyan][%] Trying to Login[/bold cyan]: ", end=None)
-        cpm = cpmgala(acc_access_key)
+        cpm = CPMtool(acc_access_key)
         login_response = cpm.login(acc_email, acc_password)
         if login_response != 0:
             if login_response == 100:
@@ -143,39 +153,44 @@ if __name__ == "__main__":
             banner(console)
             load_player_data(cpm)
             load_key_data(cpm)
-            load_client_details()
             choices = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"]
-            console.print("[bold][cyan](01):[/cyan] [green]Increase Money ~ 1000[/green]")
-            console.print("[bold][cyan](02):[/cyan] [green]Increase Coins ~ 3500[/green]")
-            console.print("[bold][cyan](03):[/cyan] [green]King Rank ~ 4000[/green]")
-            console.print("[bold][cyan](04):[/cyan] [green]Change ID ~ 3500[/green]")
-            console.print("[bold][cyan](05):[/cyan] [green]Change Name ~ 100[/green]")
-            console.print("[bold][cyan](06):[/cyan] [green]Change Name (Rainbow) ~ 100[/green]")
-            console.print("[bold][cyan](07):[/cyan] [green]Number Plates ~ 2000[/green]")
-            console.print("[bold][cyan](08):[/cyan] [green]Account Delete ~ FREE[/green]")
-            console.print("[bold][cyan](09):[/cyan] [green]Account Register ~ FREE[/green]")
-            console.print("[bold][cyan](10):[/cyan] [green]Delete Friends ~ 500[/green]")
-            console.print("[bold][cyan](11):[/cyan] [green]Unlock Paid Cars ~ 4000[/green]")
-            console.print("[bold][cyan](12):[/cyan] [green]Unlock all Cars ~ 3000[/green]")
-            console.print("[bold][cyan](13):[/cyan] [green]Unlock all Cars Siren ~ 2000[/green]")
-            console.print("[bold][cyan](14):[/cyan] [green]Unlock w16 Engine ~ 3000[/green]")
-            console.print("[bold][cyan](15):[/cyan] [green]Unlock All Horns ~ 3000[/green]")
-            console.print("[bold][cyan](16):[/cyan] [green]Unlock Disable Damage ~ 2000[/green]")
-            console.print("[bold][cyan](17):[/cyan] [green]Unlock Unlimited Fuel ~ 2000[/green]")
-            console.print("[bold][cyan](18):[/cyan] [green]Unlock House 3 ~ 3500[/green]")
-            console.print("[bold][cyan](19):[/cyan] [green]Unlock Smoke ~ 2000[/green]")
-            console.print("[bold][cyan](20):[/cyan] [green]Change Race Wins ~ 1000[/green]")
-            console.print("[bold][cyan](21):[/cyan] [green]Change Race Loses ~ 1000[/green]")
-            console.print("[bold][cyan](22):[/cyan] [green]Clone Account ~ 5000[/green]")
-            console.print("[bold][cyan](0) :[/cyan] [red]Exit[/red]", end="\n\n")
+            console.print("[bold green]{01}[/bold green]: [bold cyan]Change Money[/bold cyan]             [bold red]1.000[/bold red]")
+            console.print("[bold green]{02}[/bold green]: [bold cyan]Change Coins[/bold cyan]             [bold red]3.500[/bold red]")
+            console.print("[bold green]{03}[/bold green]: [bold cyan]King Rank[/bold cyan]                [bold red]4.000[/bold red]")
+            console.print("[bold green]{04}[/bold green]: [bold cyan]Change ID[/bold cyan]                [bold red]3.500[/bold red]")
+            console.print("[bold green]{05}[/bold green]: [bold cyan]Change Name[/bold cyan]              [bold red]100[/bold red]")
+            console.print("[bold green]{06}[/bold green]: [bold cyan]Change Name (Rainbow)[/bold cyan]    [bold red]100[/bold red]")
+            console.print("[bold green]{07}[/bold green]: [bold cyan]Number Plates[/bold cyan]            [bold red]2.000[/bold red]")
+            console.print("[bold green]{08}[/bold green]: [bold cyan]Account Delete[/bold cyan]           [bold red]FREE[/bold red]")
+            console.print("[bold green]{09}[/bold green]: [bold cyan]Account Register[/bold cyan]         [bold red]FREE[/bold red]")
+            console.print("[bold green]{10}[/bold green]: [bold cyan]Delete Friends[/bold cyan]           [bold red]5.00[/bold red]")
+            console.print("[bold green]{11}[/bold green]: [bold cyan]Unlock Paid Cars[/bold cyan]         [bold red]4.000[/bold red]")
+            console.print("[bold green]{12}[/bold green]: [bold cyan]Unlock all Cars[/bold cyan]          [bold red]3.000[/bold red]")
+            console.print("[bold green]{13}[/bold green]: [bold cyan]Unlock all Cars Siren[/bold cyan]    [bold red]2.000[/bold red]")
+            console.print("[bold green]{14}[/bold green]: [bold cyan]Unlock w16 Engine[/bold cyan]        [bold red]3.000[/bold red]")
+            console.print("[bold green]{15}[/bold green]: [bold cyan]Unlock All Horns[/bold cyan]         [bold red]3.000[/bold red]")
+            console.print("[bold green]{16}[/bold green]: [bold cyan]Unlock Disable Damage[/bold cyan]    [bold red]2.000[/bold red]")
+            console.print("[bold green]{17}[/bold green]: [bold cyan]Unlock Unlimited Fuel[/bold cyan]    [bold red]2.000[/bold red]")
+            console.print("[bold green]{18}[/bold green]: [bold cyan]Unlock House 3[/bold cyan]           [bold red]3.500[/bold red]")
+            console.print("[bold green]{19}[/bold green]: [bold cyan]Unlock Smoke[/bold cyan]             [bold red]2.000[/bold red]")
+            console.print("[bold green]{20}[/bold green]: [bold cyan]Change Race Wins[/bold cyan]         [bold red]1.000[/bold red]")
+            console.print("[bold green]{21}[/bold green]: [bold cyan]Change Race Loses[/bold cyan]        [bold red]1.000[/bold red]")
+            console.print("[bold green]{22}[/bold green]: [bold cyan]Clone Account[/bold cyan]            [bold red]5.000[/bold red]")
+            console.print("[bold green]{0} [/bold green]: [bold cyan]Exit[/bold cyan]")
+            
+            console.print("[bold][red]===============[/bold][/red][ 𝐂𝐏𝐌☆ ][bold][red]===============[/red][/bold]")
+            
             service = IntPrompt.ask(f"[bold][?] Select a Service [red][1-{choices[-1]} or 0][/red][/bold]", choices=choices, show_choices=False)
+            
+            console.print("[bold][red]===============[/bold][/red][ 𝐂𝐏𝐌☆ ][bold][red]===============[/red][/bold]")
+            
             if service == 0: # Exit
                 console.print(f"[bold yellow][!] Thank You for using our tool, please join our telegram channel[/bold yellow]: [bold blue]@{__CHANNEL_USERNAME__}[/bold blue].")
             elif service == 1: # Increase Money
                 console.print("[bold cyan][!] Insert how much money do you want.[/bold cyan]")
                 amount = IntPrompt.ask("[bold][?] Amount[/bold]")
                 console.print("[bold cyan][%] Saving your data[/bold cyan]: ", end=None)
-                if amount > 0 and amount <= 50000000:
+                if amount > 0 and amount <= 999999999:
                     if cpm.set_player_money(amount):
                         console.print("[bold green]SUCCESSFUL.[/bold green]")
                         console.print("==================================")
@@ -196,7 +211,7 @@ if __name__ == "__main__":
                 console.print("[bold cyan][!] Insert how much coins do you want.[/bold cyan]")
                 amount = IntPrompt.ask("[bold][?] Amount[/bold]")
                 console.print("[bold cyan][%] Saving your data[/bold cyan]: ", end=None)
-                if amount > 0 and amount <= 500000:
+                if amount > 0 and amount <= 999999999:
                     if cpm.set_player_coins(amount):
                         console.print("[bold green]SUCCESSFUL.[/bold green]")
                         console.print("==================================")
@@ -214,8 +229,8 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
             elif service == 3: # King Rank
-                console.print("[bold red][!] Note:[/bold red]: if the king rank doesn't appear in game, close it and open few times.")
-                console.print("[bold red][!] Note:[/bold red]: please don't do King Rank on same account twice.", end="\n\n")
+                console.print("[bold red][!] Note:[/bold red]: if the king rank doesn't appear in game, close it and open few times.", end=None)
+                console.print("[bold red][!] Note:[/bold red]: please don't do King Rank on same account twice.", end=None)
                 sleep(2)
                 console.print("[bold cyan][%] Giving you a King Rank[/bold cyan]: ", end=None)
                 if cpm.set_player_rank():
@@ -233,7 +248,7 @@ if __name__ == "__main__":
                 console.print("[bold cyan][!] Enter your new ID.[/bold cyan]")
                 new_id = Prompt.ask("[bold][?] ID[/bold]")
                 console.print("[bold cyan][%] Saving your data[/bold cyan]: ", end=None)
-                if len(new_id) >= 2 and len(new_id) <= 50 and (' ' in new_id) == False:
+                if len(new_id) >= 0 and len(new_id) <= 999999999 and (' ' in new_id) == False:
                     if cpm.set_player_localid(new_id.upper()):
                         console.print("[bold green]SUCCESSFUL.[/bold green]")
                         console.print("==================================")
@@ -254,7 +269,7 @@ if __name__ == "__main__":
                 console.print("[bold cyan][!] Enter your new Name.[/bold cyan]")
                 new_name = Prompt.ask("[bold][?] Name[/bold]")
                 console.print("[bold cyan][%] Saving your data[/bold cyan]: ", end=None)
-                if len(new_name) >= 0 and len(new_name) <= 30:
+                if len(new_name) >= 0 and len(new_name) <= 999999999:
                     if cpm.set_player_name(new_name):
                         console.print("[bold green]SUCCESSFUL.[/bold green]")
                         console.print("==================================")
@@ -275,7 +290,7 @@ if __name__ == "__main__":
                 console.print("[bold cyan][!] Enter your new Rainbow Name.[/bold cyan]")
                 new_name = Prompt.ask("[bold][?] Name[/bold]")
                 console.print("[bold cyan][%] Saving your data[/bold cyan]: ", end=None)
-                if len(new_name) >= 0 and len(new_name) <= 30:
+                if len(new_name) >= 0 and len(new_name) <= 999999999:
                     if cpm.set_player_name(rainbow_gradient_string(new_name)):
                         console.print("[bold green]SUCCESSFUL.[/bold green]")
                         console.print("==================================")
@@ -323,7 +338,7 @@ if __name__ == "__main__":
                 if status == 0:
                     console.print("[bold green]SUCCESSFUL.[/bold green]")
                     console.print("==================================")
-                    console.print(f"[bold red]! INFO[/bold red]: In order to tweak this account with cpmgala")
+                    console.print(f"[bold red]! INFO[/bold red]: In order to tweak this account with CPMtool")
                     console.print("you most sign-in to the game using this account.")
                     sleep(2)
                     continue
@@ -472,7 +487,7 @@ if __name__ == "__main__":
                 console.print("[bold cyan][!] Insert how much races you win.[/bold cyan]")
                 amount = IntPrompt.ask("[bold][?] Amount[/bold]")
                 console.print("[bold cyan][%] Changing your data[/bold cyan]: ", end=None)
-                if amount > 0 and amount <= 10000000:
+                if amount > 0 and amount <= 999999999999999999999999999:
                     if cpm.set_player_wins(amount):
                         console.print("[bold green]SUCCESSFUL.[/bold green]")
                         console.print("==================================")
@@ -493,7 +508,7 @@ if __name__ == "__main__":
                 console.print("[bold cyan][!] Insert how much races you lose.[/bold cyan]")
                 amount = IntPrompt.ask("[bold][?] Amount[/bold]")
                 console.print("[bold cyan][%] Changing your data[/bold cyan]: ", end=None)
-                if amount > 0 and amount <= 10000000:
+                if amount > 0 and amount <= 999999999999999999999:
                     if cpm.set_player_loses(amount):
                         console.print("[bold green]SUCCESSFUL.[/bold green]")
                         console.print("==================================")
