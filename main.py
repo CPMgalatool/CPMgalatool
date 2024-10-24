@@ -10,7 +10,7 @@ from rich.style import Style
 from cpmgala import CPMGala
 
 __CHANNEL_USERNAME__ = "cpmtgala"
-__GROUP_USERNAME__   = "cpmgalal_chat"
+__GROUP_USERNAME__   = "cpmgala_chat"
 
 def signal_handler(sig, frame):
     print("\n Bye Bye...")
